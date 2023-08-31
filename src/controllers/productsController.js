@@ -6,6 +6,12 @@ const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
+function getProducts(){
+	const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
+	const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+	return products;
+}
+
 function addProduct(product){
     products.push(product);
     const productsString = JSON.stringify(products);
@@ -26,6 +32,7 @@ function deleteProducts(productsNuevos){
 const controller = {
 	// Root - Show all products
 	index: (req, res) => {
+		const products = getProducts();
 		res.render('products', {products : products})
 	},
 
